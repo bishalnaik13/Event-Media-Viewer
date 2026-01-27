@@ -9,6 +9,7 @@ export default function EventDetailsScreen({ route }) {
       <Text style={styles.eventCode}>{event.code}</Text>
       <TouchableOpacity
         style={styles.button}
+        activeOpacity={0.8}
         >
         <Text style={styles.buttonText}>View Photos</Text>
       </TouchableOpacity>
@@ -25,16 +26,16 @@ const styles = StyleSheet.create({
   eventName: {
     fontSize: 22,
     fontWeight: '600',
-    marginBottom: 8,
+    marginBottom: 6,
   },
   eventCode: {
-    fontSize: 16,
-    color: '#555',
-    marginBottom: 24,
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 32,
   },
   button: {
-    paddingVertical: 14,
-    borderRadius: 8,
+    paddingVertical: 16,
+    borderRadius: 10,
     backgroundColor: '#000',
     alignItems: 'center',
   },

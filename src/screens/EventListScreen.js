@@ -10,6 +10,7 @@ export default function EventListScreen() {
         return (
             <TouchableOpacity
                 style={styles.card}
+                activeOpacity={0.7}
                 onPress={() => navigation.navigate('EventDetails', { event: item })}
             >
                 <Text style={styles.eventName}>{item.name}</Text>
@@ -45,19 +46,20 @@ const styles = StyleSheet.create({
         padding: 16,
     },
     card: {
-        padding: 16,
-        borderRadius: 8,
-        backgroundColor: '#f2f2f2',
-        marginBottom: 12,
+        paddingVertical: 16,
+        paddingHorizontal: 16,
+        borderRadius: 10,
+        backgroundColor: '#f5f5f5',
+        marginBottom: 14,
     },
     eventName: {
         fontSize: 16,
         fontWeight: '600',
-        marginBottom: 4,
+        marginBottom: 6,
     },
     eventCode: {
         fontSize: 14,
-        color: '#555',
+        color: '#666',
     },
     center: {
         flex: 1,

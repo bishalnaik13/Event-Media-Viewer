@@ -91,14 +91,15 @@ export default function PhotoGalleryScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 8,
+        paddingHorizontal: 8,
+        paddingTop: 8,
         backgroundColor: '#fff',
     },
     image: {
         width: IMAGE_SIZE,
         height: IMAGE_SIZE,
         margin: 4,
-        borderRadius: 8,
+        borderRadius: 10,
         backgroundColor: '#e0e0e0',
     },
     center: {
