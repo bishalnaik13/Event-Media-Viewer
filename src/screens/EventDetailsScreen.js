@@ -1,8 +1,10 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 
 export default function EventDetailsScreen({ route }) {
   const { event } = route.params;
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>{event.name}</Text>
@@ -10,7 +12,12 @@ export default function EventDetailsScreen({ route }) {
       <TouchableOpacity
         style={styles.button}
         activeOpacity={0.8}
-        >
+        onPress={() =>
+          navigation.navigate('PhotoGallery', {
+            event,
+          })
+        }
+      >
         <Text style={styles.buttonText}>View Photos</Text>
       </TouchableOpacity>
     </View>

@@ -5,9 +5,10 @@ import {
     StyleSheet,
     Dimensions,
     ActivityIndicator,
-    Text
+    Text,
+    Pressable
 } from 'react-native';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import { fetchPhotos } from '../services/unsplashService';
@@ -16,7 +17,8 @@ const NUM_COLUMNS = 3;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const IMAGE_SIZE = SCREEN_WIDTH / NUM_COLUMNS - 16;
 
-export default function PhotoGalleryScreen() {
+export default function PhotoGalleryScreen({ route }) {
+    const { event } = route.params || {};
     const navigation = useNavigation();
     const [photos, setPhotos] = useState([]);
     const [page, setPage] = useState(1);
@@ -31,7 +33,11 @@ export default function PhotoGalleryScreen() {
         if (loading) return;
         try {
             setLoading(true);
-            const newPhotos = await fetchPhotos(page);
+            const newPhotos = await fetchPhotos(
+                page,
+                20,
+                event?.name
+            );
             setPhotos((prev) => [...prev, ...newPhotos]);
             setPage((prev) => prev + 1);
         } catch (err) {
@@ -42,17 +48,21 @@ export default function PhotoGalleryScreen() {
     };
 
     const renderItem = ({ item }) => {
+        const index = photos.findIndex((p) => p.id === item.id);
         return (
-            <Image
-                source={{ uri: item.urls.small }}
-                style={styles.image}
-                onTouchEnd={() =>
+            <Pressable
+                onPress={() =>
                     navigation.navigate('PhotoViewer', {
                         photos,
-                        initialIndex: photos.findIndex((p) => p.id === item.id),
+                        initialIndex: index < 0 ? 0 : index,
                     })
                 }
-            />
+            >
+                <Image
+                    source={{ uri: item.urls.small }}
+                    style={styles.image}
+                />
+            </Pressable>
         );
     };
     if (error) {

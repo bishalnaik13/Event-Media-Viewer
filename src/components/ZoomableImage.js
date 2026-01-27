@@ -1,4 +1,4 @@
-import { Image, Dimensions, StyleSheet } from 'react-native';
+import { Image, Dimensions, StyleSheet, ActivityIndicator, View } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -7,28 +7,41 @@ import {
   Gesture,
   GestureDetector,
 } from 'react-native-gesture-handler';
+import { useState } from 'react';
+
 const { width, height } = Dimensions.get('window');
+
 export default function ZoomableImage({ imageUrl }) {
   const scale = useSharedValue(1);
-const pinchGesture = Gesture.Pinch()
+  const [loading, setLoading] = useState(true);
+  const pinchGesture = Gesture.Pinch()
+
     .onUpdate((e) => {
       scale.value = e.scale;
     })
     .onEnd(() => {
       scale.value = 1;
     });
-const animatedStyle = useAnimatedStyle(() => ({
+
+  const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
-return (
+
+  return (
     <GestureDetector gesture={pinchGesture}>
-      <Animated.View style={styles.container}>
+      <View style={styles.container}>
+        {loading && (
+          <View style={styles.loader}>
+            <ActivityIndicator size="large" color="#fff" />
+          </View>
+        )}
         <Animated.Image
           source={{ uri: imageUrl }}
           style={[styles.image, animatedStyle]}
           resizeMode="contain"
+          onLoadEnd={() => setLoading(false)}
         />
-      </Animated.View>
+      </View>
     </GestureDetector>
   );
 }
@@ -44,6 +57,10 @@ const styles = StyleSheet.create({
   image: {
     width,
     height,
+  },
+  loader: {
+    position: 'absolute',
+    zIndex: 10,
   },
 });
 

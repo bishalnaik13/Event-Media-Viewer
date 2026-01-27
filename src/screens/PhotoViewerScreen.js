@@ -8,6 +8,8 @@ const { width, height } = Dimensions.get('window');
 export default function PhotoViewerScreen({ route }) {
     const { photos, initialIndex } = route.params;
     const flatListRef = useRef(null);
+    const startIndex = initialIndex >= 0 ? initialIndex : 0;
+
 
     return (
         <View style={styles.container}>
@@ -16,7 +18,7 @@ export default function PhotoViewerScreen({ route }) {
                 data={photos}
                 horizontal
                 pagingEnabled
-                initialScrollIndex={initialIndex}
+                initialScrollIndex={startIndex}
                 keyExtractor={(item) => item.id}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item }) => (
@@ -31,3 +33,10 @@ export default function PhotoViewerScreen({ route }) {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#000',
+    },
+});
