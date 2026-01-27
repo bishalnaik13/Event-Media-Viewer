@@ -24,6 +24,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "unsplashAccessKey": "kQ_MJ9affRAdJ1n10I3qe1cnU3uCwXdjt92BB49DqSU"
     }
   }
 }
