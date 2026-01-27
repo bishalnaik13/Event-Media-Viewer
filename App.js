@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import EventListScreen from './src/screens/EventListScreen';
+import AppNavigator from './src/navigation/AppNavigator';
 
 export default function App() {
-  return <EventListScreen />;
+  return <AppNavigator />;
 }
 
 const styles = StyleSheet.create({
