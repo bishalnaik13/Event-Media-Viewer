@@ -58,10 +58,18 @@ export default function PhotoGalleryScreen() {
     if (error) {
         return (
             <View style={styles.center}>
-                <Text>{error}</Text>
+                <Text style={styles.errorText}>{error}</Text>
             </View>
         );
     }
+    if (!loading && photos.length === 0) {
+        return (
+            <View style={styles.center}>
+                <Text>No photos found</Text>
+            </View>
+        );
+    }
+
 
 
     return (
@@ -97,5 +105,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    errorText: {
+        color: '#cc0000',
+        fontSize: 14,
     },
 });

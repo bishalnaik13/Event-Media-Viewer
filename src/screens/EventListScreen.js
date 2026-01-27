@@ -8,9 +8,9 @@ export default function EventListScreen() {
 
     const renderItem = ({ item }) => {
         return (
-            <TouchableOpacity 
-            style={styles.card}
-            onPress={() => navigation.navigate('EventDetails', {event: item})}
+            <TouchableOpacity
+                style={styles.card}
+                onPress={() => navigation.navigate('EventDetails', { event: item })}
             >
                 <Text style={styles.eventName}>{item.name}</Text>
                 <Text style={styles.eventCode}>{item.code}</Text>
@@ -19,12 +19,19 @@ export default function EventListScreen() {
     };
     return (
         <View style={styles.container}>
-            <FlatList
-                data={events}
-                keyExtractor={(item) => item.id}
-                renderItem={renderItem}
-                contentContainerStyle={styles.listContent}
-            />
+            {events.length === 0 ? (
+                <View style={styles.center}>
+                    <Text style={styles.emptyText}>No events available</Text>
+                </View>
+            ) : (
+                <FlatList
+                    data={events}
+                    keyExtractor={(item) => item.id}
+                    renderItem={renderItem}
+                    contentContainerStyle={styles.listContent}
+                />
+            )}
+
         </View>
     );
 }
@@ -51,6 +58,15 @@ const styles = StyleSheet.create({
     eventCode: {
         fontSize: 14,
         color: '#555',
+    },
+    center: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    emptyText: {
+        fontSize: 16,
+        color: '#777',
     },
 });
 
