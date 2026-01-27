@@ -8,6 +8,7 @@ import {
     Text
 } from 'react-native';
 import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import { fetchPhotos } from '../services/unsplashService';
 
@@ -16,6 +17,7 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 const IMAGE_SIZE = SCREEN_WIDTH / NUM_COLUMNS - 16;
 
 export default function PhotoGalleryScreen() {
+    const navigation = useNavigation();
     const [photos, setPhotos] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -44,6 +46,11 @@ export default function PhotoGalleryScreen() {
             <Image
                 source={{ uri: item.urls.small }}
                 style={styles.image}
+                onTouchEnd={() =>
+                    navigation.navigate('PhotoViewer', {
+                        imageUrl: item.urls.full,
+                    })
+                }
             />
         );
     };
