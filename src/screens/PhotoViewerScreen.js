@@ -1,30 +1,33 @@
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, FlatList, Dimensions, StyleSheet } from 'react-native';
+import { useRef } from 'react';
+
+import ZoomableImage from '../components/ZoomableImage';
 
 const { width, height } = Dimensions.get('window');
 
 export default function PhotoViewerScreen({ route }) {
-    const { imageUrl } = route.params;
+    const { photos, initialIndex } = route.params;
+    const flatListRef = useRef(null);
 
     return (
         <View style={styles.container}>
-            <Image
-                source={{ uri: imageUrl }}
-                style={styles.image}
-                resizeMode="contain"
+            <FlatList
+                ref={flatListRef}
+                data={photos}
+                horizontal
+                pagingEnabled
+                initialScrollIndex={initialIndex}
+                keyExtractor={(item) => item.id}
+                showsHorizontalScrollIndicator={false}
+                renderItem={({ item }) => (
+                    <ZoomableImage imageUrl={item.urls.full} />
+                )}
+                getItemLayout={(_, index) => ({
+                    length: width,
+                    offset: width * index,
+                    index,
+                })}
             />
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    width,
-    height,
-  },
-});

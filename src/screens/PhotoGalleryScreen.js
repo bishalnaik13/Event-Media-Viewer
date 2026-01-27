@@ -48,7 +48,8 @@ export default function PhotoGalleryScreen() {
                 style={styles.image}
                 onTouchEnd={() =>
                     navigation.navigate('PhotoViewer', {
-                        imageUrl: item.urls.full,
+                        photos,
+                        initialIndex: photos.findIndex((p) => p.id === item.id),
                     })
                 }
             />

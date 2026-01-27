@@ -1,11 +1,15 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+
+
 export default function EventDetailsScreen({ route }) {
   const { event } = route.params;
-return (
+  return (
     <View style={styles.container}>
       <Text style={styles.eventName}>{event.name}</Text>
       <Text style={styles.eventCode}>{event.code}</Text>
-<TouchableOpacity style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        >
         <Text style={styles.buttonText}>View Photos</Text>
       </TouchableOpacity>
     </View>
