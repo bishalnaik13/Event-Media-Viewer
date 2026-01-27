@@ -1,10 +1,24 @@
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import {
+    View,
+    Text,
+    FlatList,
+    TouchableOpacity,
+    StyleSheet,
+    TextInput
+} from 'react-native';
+import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import { events } from '../data/events';
 
 export default function EventListScreen() {
     const navigation = useNavigation();
+
+    const [searchText, setSearchText] = useState('');
+    const filteredEvents = events.filter((event) =>
+        event.name.toLowerCase().includes(searchText.toLowerCase()) ||
+        event.code.toLowerCase().includes(searchText.toLowerCase())
+    );
 
     const renderItem = ({ item }) => {
         return (
@@ -18,15 +32,24 @@ export default function EventListScreen() {
             </TouchableOpacity>
         );
     };
+
     return (
         <View style={styles.container}>
-            {events.length === 0 ? (
+            <TextInput
+                placeholder="Search events by name or code"
+                value={searchText}
+                onChangeText={setSearchText}
+                style={styles.searchInput}
+                autoCorrect={false}
+            />
+
+            {filteredEvents.length === 0 ? (
                 <View style={styles.center}>
-                    <Text style={styles.emptyText}>No events available</Text>
+                    <Text style={styles.emptyText}>No matching events available</Text>
                 </View>
             ) : (
                 <FlatList
-                    data={events}
+                    data={filteredEvents}
                     keyExtractor={(item) => item.id}
                     renderItem={renderItem}
                     contentContainerStyle={styles.listContent}
@@ -70,5 +93,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#777',
     },
+    searchInput: {
+        height: 44,
+        borderRadius: 10,
+        paddingHorizontal: 14,
+        backgroundColor: '#f2f2f2',
+        marginBottom: 12,
+        fontSize: 16,
+    },
+
 });
 

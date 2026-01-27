@@ -24,6 +24,8 @@ export default function PhotoGalleryScreen({ route }) {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [query, setQuery] = useState(event?.name || '');
+
 
     useEffect(() => {
         loadPhotos();
