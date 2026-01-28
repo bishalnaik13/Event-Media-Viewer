@@ -6,10 +6,36 @@ import {
     StyleSheet,
     TextInput
 } from 'react-native';
+import Animated, {
+    useSharedValue,
+    useAnimatedStyle,
+    withTiming,
+} from 'react-native-reanimated';
+import { useEffect } from 'react';
+
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import { events } from '../data/events';
+
+function FadeInView({ children, style }) {
+    const opacity = useSharedValue(0);
+
+    useEffect(() => {
+        opacity.value = withTiming(1, { duration: 300 });
+    }, []);
+
+    const animatedStyle = useAnimatedStyle(() => ({
+        opacity: opacity.value,
+    }));
+
+    return (
+        <Animated.View style={[style, animatedStyle]}>
+            {children}
+        </Animated.View>
+    );
+}
+
 
 export default function EventListScreen() {
     const navigation = useNavigation();
@@ -22,14 +48,16 @@ export default function EventListScreen() {
 
     const renderItem = ({ item }) => {
         return (
-            <TouchableOpacity
-                style={styles.card}
-                activeOpacity={0.7}
-                onPress={() => navigation.navigate('EventDetails', { event: item })}
-            >
-                <Text style={styles.eventName}>{item.name}</Text>
-                <Text style={styles.eventCode}>{item.code}</Text>
-            </TouchableOpacity>
+            <FadeInView>
+                <TouchableOpacity
+                    style={styles.card}
+                    activeOpacity={0.7}
+                    onPress={() => navigation.navigate('EventDetails', { event: item })}
+                >
+                    <Text style={styles.eventName}>{item.name}</Text>
+                    <Text style={styles.eventCode}>{item.code}</Text>
+                </TouchableOpacity>
+            </FadeInView>
         );
     };
 

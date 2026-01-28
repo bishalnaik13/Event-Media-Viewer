@@ -7,6 +7,11 @@ import {
     Text,
     Pressable
 } from 'react-native';
+import Animated, {
+    useSharedValue,
+    useAnimatedStyle,
+    withTiming,
+} from 'react-native-reanimated';
 import { Image as ExpoImage } from 'expo-image';
 import { useEffect, useState, useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -16,6 +21,25 @@ import { fetchPhotos } from '../services/unsplashService';
 const NUM_COLUMNS = 3;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const IMAGE_SIZE = SCREEN_WIDTH / NUM_COLUMNS - 16;
+
+function FadeInView({ children }) {
+    const opacity = useSharedValue(0);
+
+    useEffect(() => {
+        opacity.value = withTiming(1, { duration: 250 });
+    }, []);
+
+    const animatedStyle = useAnimatedStyle(() => ({
+        opacity: opacity.value,
+    }));
+
+    return (
+        <Animated.View style={animatedStyle}>
+            {children}
+        </Animated.View>
+    );
+}
+
 
 export default function PhotoGalleryScreen({ route }) {
     const { event } = route.params || {};
@@ -51,23 +75,26 @@ export default function PhotoGalleryScreen({ route }) {
 
     const renderItem = ({ item }) => {
         const index = photos.findIndex((p) => p.id === item.id);
+
         return (
-            <Pressable
-                onPress={() =>
-                    navigation.navigate('PhotoViewer', {
-                        photos,
-                        initialIndex: index < 0 ? 0 : index,
-                    })
-                }
-            >
-                <ExpoImage
-                    source={{ uri: item.urls.small }}
-                    style={styles.image}
-                    contentFit="cover"
-                    transition={150}
-                    cachePolicy="disk"
-                />
-            </Pressable>
+            <FadeInView>
+                <Pressable
+                    onPress={() =>
+                        navigation.navigate('PhotoViewer', {
+                            photos,
+                            initialIndex: index < 0 ? 0 : index,
+                        })
+                    }
+                >
+                    <ExpoImage
+                        source={{ uri: item.urls.small }}
+                        style={styles.image}
+                        contentFit="cover"
+                        transition={150}
+                        cachePolicy="disk"
+                    />
+                </Pressable>
+            </FadeInView>
         );
     };
     if (error) {
