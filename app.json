@@ -20,13 +20,17 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.bishalnaik13.EventMediaViewer"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "unsplashAccessKey": "kQ_MJ9affRAdJ1n10I3qe1cnU3uCwXdjt92BB49DqSU"
+      "unsplashAccessKey": "kQ_MJ9affRAdJ1n10I3qe1cnU3uCwXdjt92BB49DqSU",
+      "eas": {
+        "projectId": "067d7e15-c909-494a-9e89-6d8933547ff0"
+      }
     }
   }
 }
