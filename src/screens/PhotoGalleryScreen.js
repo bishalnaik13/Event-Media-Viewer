@@ -5,7 +5,8 @@ import {
     Dimensions,
     ActivityIndicator,
     Text,
-    Pressable
+    Pressable,
+    useColorScheme
 } from 'react-native';
 import Animated, {
     useSharedValue,
@@ -16,6 +17,7 @@ import { Image as ExpoImage } from 'expo-image';
 import { useEffect, useState, useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
+import { LightTheme, DarkTheme } from '../utils/theme';
 import { fetchPhotos } from '../services/unsplashService';
 
 const NUM_COLUMNS = 3;
@@ -44,6 +46,12 @@ function FadeInView({ children }) {
 export default function PhotoGalleryScreen({ route }) {
     const { event } = route.params || {};
     const navigation = useNavigation();
+
+    const scheme = useColorScheme();
+    const theme = scheme === 'dark' ? DarkTheme : LightTheme;
+    const styles = createStyles(theme);
+
+
     const [photos, setPhotos] = useState([]);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -130,27 +138,29 @@ export default function PhotoGalleryScreen({ route }) {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 8,
-        paddingTop: 8,
-        backgroundColor: '#fff',
-    },
-    image: {
-        width: IMAGE_SIZE,
-        height: IMAGE_SIZE,
-        margin: 4,
-        borderRadius: 10,
-        backgroundColor: '#e0e0e0',
-    },
-    center: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    errorText: {
-        color: '#cc0000',
-        fontSize: 14,
-    },
-});
+const createStyles = (theme) =>
+    StyleSheet.create({
+        container: {
+            flex: 1,
+            paddingHorizontal: 8,
+            paddingTop: 8,
+            backgroundColor: theme.background,
+        },
+        image: {
+            width: IMAGE_SIZE,
+            height: IMAGE_SIZE,
+            margin: 4,
+            borderRadius: 10,
+            backgroundColor: theme.border,
+        },
+        center: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        errorText: {
+            color: '#cc0000',
+            fontSize: 14,
+        },
+    });
+

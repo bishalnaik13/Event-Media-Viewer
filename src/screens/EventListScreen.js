@@ -4,18 +4,18 @@ import {
     FlatList,
     TouchableOpacity,
     StyleSheet,
-    TextInput
+    TextInput,
+    useColorScheme
 } from 'react-native';
 import Animated, {
     useSharedValue,
     useAnimatedStyle,
     withTiming,
 } from 'react-native-reanimated';
-import { useEffect } from 'react';
-
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
+import { LightTheme, DarkTheme } from '../utils/theme';
 import { events } from '../data/events';
 
 function FadeInView({ children, style }) {
@@ -40,11 +40,18 @@ function FadeInView({ children, style }) {
 export default function EventListScreen() {
     const navigation = useNavigation();
 
+    const scheme = useColorScheme();
+    const theme = scheme === 'dark' ? DarkTheme : LightTheme;
+    const styles = createStyles(theme);
+
+
+
     const [searchText, setSearchText] = useState('');
     const filteredEvents = events.filter((event) =>
         event.name.toLowerCase().includes(searchText.toLowerCase()) ||
         event.code.toLowerCase().includes(searchText.toLowerCase())
     );
+
 
     const renderItem = ({ item }) => {
         return (
@@ -65,6 +72,7 @@ export default function EventListScreen() {
         <View style={styles.container}>
             <TextInput
                 placeholder="Search events by name or code"
+                placeholderTextColor={theme.textSecondary}
                 value={searchText}
                 onChangeText={setSearchText}
                 style={styles.searchInput}
@@ -88,47 +96,50 @@ export default function EventListScreen() {
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    listContent: {
-        padding: 16,
-    },
-    card: {
-        paddingVertical: 16,
-        paddingHorizontal: 16,
-        borderRadius: 10,
-        backgroundColor: '#f5f5f5',
-        marginBottom: 14,
-    },
-    eventName: {
-        fontSize: 16,
-        fontWeight: '600',
-        marginBottom: 6,
-    },
-    eventCode: {
-        fontSize: 14,
-        color: '#666',
-    },
-    center: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    emptyText: {
-        fontSize: 16,
-        color: '#777',
-    },
-    searchInput: {
-        height: 44,
-        borderRadius: 10,
-        paddingHorizontal: 14,
-        backgroundColor: '#f2f2f2',
-        marginBottom: 12,
-        fontSize: 16,
-    },
+const createStyles = (theme) =>
+    StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: theme.background,
+        },
+        listContent: {
+            padding: 16,
+        },
+        card: {
+            paddingVertical: 16,
+            paddingHorizontal: 16,
+            borderRadius: 10,
+            backgroundColor: theme.card,
+            marginBottom: 14,
+        },
+        eventName: {
+            fontSize: 16,
+            fontWeight: '600',
+            marginBottom: 6,
+            color: theme.textPrimary,
+        },
+        eventCode: {
+            fontSize: 14,
+            color: theme.textSecondary,
+        },
+        center: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+        },
+        emptyText: {
+            fontSize: 16,
+            color: theme.textSecondary,
+        },
+        searchInput: {
+            height: 44,
+            borderRadius: 10,
+            paddingHorizontal: 14,
+            backgroundColor: theme.input,
+            marginBottom: 12,
+            fontSize: 16,
+            color: theme.textPrimary,
+        },
+    });
 
-});
 
