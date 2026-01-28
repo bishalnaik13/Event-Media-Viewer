@@ -1,4 +1,4 @@
-````md
+
 # Event Media Viewer 📸
 
 Event Media Viewer is a React Native mobile application that allows users to browse events and view event-related photos in a smooth, performant, and user-friendly way.  
@@ -107,7 +107,7 @@ The APK build can be downloaded from:
 
 A short demo video demonstrating the complete app flow:
 
-👉 **[Screen Recording Link](https://private-user-images.githubusercontent.com/185886008/541848860-61e5312d-d159-4604-bc2c-57bc172561f2.mp4?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3Njk2MzIzODgsIm5iZiI6MTc2OTYzMjA4OCwicGF0aCI6Ii8xODU4ODYwMDgvNTQxODQ4ODYwLTYxZTUzMTJkLWQxNTktNDYwNC1iYzJjLTU3YmMxNzI1NjFmMi5tcDQ_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwMTI4JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDEyOFQyMDI4MDhaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0xNWVjYTI1ZjQ0ODllNWNjZjI2ZmM1ZjczNWIyNjE0NTY5MDIyMDQwMTQ0YTljMTViMDQyYjFiODk5MzNjOTI2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.3wokwrJXzlVfpV8MxT1EXYc4E9UxMueEIInxWu1pOrg)**
+👉 **[Screen Recording Link](https://github.com/bishalnaik13/Event-Media-Viewer/releases/tag/v1.0.0)**
 
 ---
 
