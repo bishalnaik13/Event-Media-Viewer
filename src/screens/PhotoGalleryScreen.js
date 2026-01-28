@@ -1,13 +1,13 @@
 import {
     View,
     FlatList,
-    Image,
     StyleSheet,
     Dimensions,
     ActivityIndicator,
     Text,
     Pressable
 } from 'react-native';
+import { Image as ExpoImage } from 'expo-image';
 import { useEffect, useState, useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
@@ -60,9 +60,12 @@ export default function PhotoGalleryScreen({ route }) {
                     })
                 }
             >
-                <Image
+                <ExpoImage
                     source={{ uri: item.urls.small }}
                     style={styles.image}
+                    contentFit="cover"
+                    transition={150}
+                    cachePolicy="disk"
                 />
             </Pressable>
         );

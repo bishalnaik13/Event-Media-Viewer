@@ -1,4 +1,5 @@
-import { Image, Dimensions, StyleSheet, ActivityIndicator, View } from 'react-native';
+import { Dimensions, StyleSheet, ActivityIndicator, View } from 'react-native';
+import { Image as ExpoImage } from 'expo-image';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -35,12 +36,15 @@ export default function ZoomableImage({ imageUrl }) {
             <ActivityIndicator size="large" color="#fff" />
           </View>
         )}
-        <Animated.Image
-          source={{ uri: imageUrl }}
-          style={[styles.image, animatedStyle]}
-          resizeMode="contain"
-          onLoadEnd={() => setLoading(false)}
-        />
+        <Animated.View style={[styles.imageWrapper, animatedStyle]}>
+          <ExpoImage
+            source={{ uri: imageUrl }}
+            style={styles.image}
+            contentFit="contain"
+            cachePolicy="disk"
+            onLoadEnd={() => setLoading(false)}
+          />
+        </Animated.View>
       </View>
     </GestureDetector>
   );
@@ -61,6 +65,12 @@ const styles = StyleSheet.create({
   loader: {
     position: 'absolute',
     zIndex: 10,
+  },
+  imageWrapper: {
+    width,
+    height,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
