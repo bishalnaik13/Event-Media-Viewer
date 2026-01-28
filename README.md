@@ -1,5 +1,3 @@
----
-
 ````md
 # Event Media Viewer 📸
 
@@ -62,7 +60,7 @@ This project was developed as part of a **React Native Internship – Technical 
    ```bash
    git clone https://github.com/bishalnaik13/event-media-viewer.git
    cd event-media-viewer
-````
+
 
 2. **Install dependencies**
 
@@ -147,6 +145,4 @@ A short demo video demonstrating the complete app flow:
 
 This project is created for evaluation and learning purposes.
 
-````
 
----
